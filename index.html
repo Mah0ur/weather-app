@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather App</title>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/37200e15bf.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-5">
+          <h6>The Only Weather Forecast You Need</h6>
+          <hr width="60%" />
+          <div class="row align-items-center">
+            <div class="col-10">
+              <form id="search-city">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter location"
+                    id="desired-location"
+                  />
+                  <button class="btn btn-light" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="col-1">
+              <button
+                title="current location"
+                type="submit"
+                id="fetch-location"
+              >
+                <i class="fa-solid fa-location-crosshairs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <h1><i class="fa-solid fa-cloud-sun fa-flip-horizontal"></i></h1>
+        </div>
+        <div class="col-4">
+          <h4>
+            <i class="fa-solid fa-location-dot"></i>
+            <strong id="current-location">Tehran</strong>
+          </h4>
+          <h6 id="current-date-time">Current Date Time</h6>
+          <h5>
+            <strong>Mostly Cloudy</strong>
+          </h5>
+        </div>
+      </div>
+      <div class="container sub-cont">
+        <div class="row">
+          <div class="col-4">
+            <h2>
+              Now <span class="temp" id="current-temp">8</span
+              ><small
+                ><a href="#" id="deg-c">°C</a>|<a href="#" id="deg-f"
+                  >°F</a
+                ></small
+              >
+            </h2>
+          </div>
+          <div class="col-2">
+            <p class="day-detail-2">
+              High: <span class="temp">8</span><small>°</small>
+              <br />
+              Low: <span class="temp">1</span><small>°</small>
+            </p>
+          </div>
+          <div class="col-3">
+            <p class="day-detail-2">
+              Feels like: <span class="temp">8</span><small>°</small>
+              <br />
+              Humidity: 49%
+              <br />
+              Wind: 1.18 m/s
+            </p>
+          </div>
+          <div class="col-3">
+            <p class="day-detail-3">
+              Dew Pt: <span class="temp">-2</span><small>°</small>
+              <br />
+              Visibility: 10km
+              <br />
+              Pressure: 1030 mb
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col forcast">
+            <h6 id="forcast-1">Sun</h6>
+            <h3><i class="fa-solid fa-sun"></i></h3>
+            <p>
+              <span class="temp">13</span><small>°</small>/<span class="temp"
+                >-2</span
+              ><small>°</small>
+            </p>
+          </div>
+          <div class="col forcast">
+            <h6 id="forcast-2">Mon</h6>
+            <h3><i class="fa-solid fa-cloud-sun-rain"></i></h3>
+            <p>
+              <span class="temp">14</span><small>°</small>/<span class="temp"
+                >0</span
+              ><small>°</small>
+            </p>
+          </div>
+          <div class="col forcast">
+            <h6 id="forcast-3">Tue</h6>
+            <h3><i class="fa-solid fa-cloud"></i></h3>
+            <p>
+              <span class="temp">15</span><small>°</small>/<span class="temp"
+                >2</span
+              ><small>°</small>
+            </p>
+          </div>
+          <div class="col forcast">
+            <h6 id="forcast-4">Sun</h6>
+            <h3><i class="fa-solid fa-cloud-bolt"></i></h3>
+            <p>
+              <span class="temp">14</span><small>°</small>/<span class="temp"
+                >1</span
+              ><small>°</small>
+            </p>
+          </div>
+          <div class="col forcast">
+            <h6 id="forcast-5">Sun</h6>
+            <h3><i class="fa-solid fa-cloud-rain"></i></h3>
+            <p>
+              <span class="temp">10</span><small>°</small>/<span class="temp"
+                >0</span
+              ><small>°</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="credit">Coded by Mahour 𝄢</p>
+    </div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>
