@@ -43,18 +43,58 @@ function handleCity(city) {
   if (currentUnit === "f") {
     fToC();
   }
-  let currentCity = document.querySelector("#current-location");
+  let currentLocation = document.querySelector("#current-location");
+  let currentTemp = document.querySelector("#current-temp");
+  let feelsLikeTemp = document.querySelector("#feels-like-temp");
+  let maxCurrentTemp = document.querySelector("#max-current-temp");
+  let minCurrentTemp = document.querySelector("#min-current-temp");
+  let humidity = document.querySelector("#humidity");
+  let windSpeed = document.querySelector("#wind-speed");
+  let visibility = document.querySelector("#visibility");
+  let pressure = document.querySelector("#pressure");
+  let weatherDescription = document.querySelector("#weather-description")
+
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+  let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`;
+
   axios.get(url).then(function (response) {
+    console.log(response.data);
     let cityTime = new Date(
       now.getTime() + (response.data.timezone + localZone) * 1000
     );
     let country = response.data.sys.country;
-    let temp = Math.round(response.data.main.temp);
-    let currentTemp = document.querySelector("#current-temp");
-    currentCity.innerHTML = `${city}, ${country}`;
-    currentTemp.innerHTML = temp;
+    let cityCurrentTemp = Math.round(response.data.main.temp);
+    let cityFeelsLikeTemp = Math.round(response.data.main.feels_like);
+    let cityHumidity = response.data.main.humidity;
+    let cityWindSpeed = response.data.wind.speed;
+    let cityVisibility = Math.round(response.data.visibility / 1000);
+    let cityPressure = response.data.main.pressure;
+    let cityWeatherDescription = response.data.weather[0].description;
+    cityWeatherDescription = cityWeatherDescription.charAt(0).toUpperCase() + cityWeatherDescription.slice(1)
     setDateTime(cityTime);
+    currentLocation.innerHTML = `${city}, ${country}`;
+    currentTemp.innerHTML = cityCurrentTemp;
+    feelsLikeTemp.innerHTML = cityFeelsLikeTemp;
+    humidity.innerHTML = cityHumidity;
+    windSpeed.innerHTML = cityWindSpeed;
+    visibility.innerHTML = cityVisibility;
+    pressure.innerHTML = cityPressure;
+    weatherDescription.innerHTML = cityWeatherDescription;
+  })
+  axios.get(forecastUrl).then(function (response) {
+    console.log(response.data);
+    let cityMaxCurrentTemp = Math.round(response.data.list[0].main.temp_max);
+    let cityMinCurrentTemp = Math.round(response.data.list[0].main.temp_min);
+    for (let i = 1; i < 4; i++) {
+      if (response.data.list[i].main.temp_max > cityMaxCurrentTemp) {
+        cityMaxCurrentTemp = Math.round(response.data.list[i].main.temp_max);
+      }
+      if (response.data.list[i].main.temp_min < cityMinCurrentTemp) {
+        cityMinCurrentTemp = Math.round(response.data.list[i].main.temp_min);
+      }
+    }
+    maxCurrentTemp.innerHTML = cityMaxCurrentTemp;
+    minCurrentTemp.innerHTML = cityMinCurrentTemp;
   });
 }
 
