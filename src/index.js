@@ -55,9 +55,9 @@ function handleCity(city) {
   let currentIcon = document.querySelector("#current-icon")
 
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
-  let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`;
 
   axios.get(url).then(function (response) {
+    let forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=${unit}`;
     let cityTime = new Date(
       now.getTime() + (response.data.timezone + localZone) * 1000
     );
@@ -89,21 +89,27 @@ function handleCity(city) {
     pressure.innerHTML = cityPressure;
     weatherDescription.innerHTML = cityWeatherDescription;
     currentIcon.setAttribute("src", `https://openweathermap.org/img/wn/${cityCurrentIcon}@2x.png`)
+
+    axios.get(forecastUrl).then(function (response) {
+      let maxForcastTemp = ""
+      let minForcastTemp = ""
+      let forcastIcon = ""
+      for (let i = 1; i < 6; i++) {
+        maxForcastTemp = document.querySelector(`#forcast-max-${i}`)
+        minForcastTemp = document.querySelector(`#forcast-min-${i}`)
+        forcastIcon = document.querySelector(`#forcast-icon-${i}`)
+        maxForcastTemp.innerHTML = Math.round(response.data.daily[i].temp.max);
+        minForcastTemp.innerHTML = Math.round(response.data.daily[i].temp.min);
+        let cityForcastIcon = response.data.daily[i].weather[0].icon
+        forcastIcon.setAttribute("src", `https://openweathermap.org/img/wn/${cityForcastIcon}@2x.png`)
+      }
+      let cityMaxCurrentTemp = Math.round(response.data.daily[0].temp.max);
+      let cityMinCurrentTemp = Math.round(response.data.daily[0].temp.min);
+      maxCurrentTemp.innerHTML = cityMaxCurrentTemp;
+      minCurrentTemp.innerHTML = cityMinCurrentTemp;
+    });
   })
-  axios.get(forecastUrl).then(function (response) {
-    let cityMaxCurrentTemp = Math.round(response.data.list[0].main.temp_max);
-    let cityMinCurrentTemp = Math.round(response.data.list[0].main.temp_min);
-    for (let i = 1; i < 4; i++) {
-      if (response.data.list[i].main.temp_max > cityMaxCurrentTemp) {
-        cityMaxCurrentTemp = Math.round(response.data.list[i].main.temp_max);
-      }
-      if (response.data.list[i].main.temp_min < cityMinCurrentTemp) {
-        cityMinCurrentTemp = Math.round(response.data.list[i].main.temp_min);
-      }
-    }
-    maxCurrentTemp.innerHTML = cityMaxCurrentTemp;
-    minCurrentTemp.innerHTML = cityMinCurrentTemp;
-  });
+
 }
 
 function fToC() {
@@ -126,7 +132,7 @@ function cToF() {
   });
 }
 
-let apiKey = "b35c686ba9565ba0ab254c2230937552";
+let apiKey = "64469ac67e6dc941feb5b50915a18dc7";
 let unit = "metric";
 let days = [
   "Sunday",
