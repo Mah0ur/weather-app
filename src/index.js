@@ -35,7 +35,6 @@ function handleSearch(event) {
   event.preventDefault();
   let desiredCity = document.querySelector("#desired-location").value;
   desiredCity = desiredCity.trim().toLowerCase();
-  desiredCity = desiredCity.charAt(0).toUpperCase() + desiredCity.slice(1);
   handleCity(desiredCity);
 }
 
@@ -53,12 +52,12 @@ function handleCity(city) {
   let visibility = document.querySelector("#visibility");
   let pressure = document.querySelector("#pressure");
   let weatherDescription = document.querySelector("#weather-description")
+  let currentIcon = document.querySelector("#current-icon")
 
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
   let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${unit}`;
 
   axios.get(url).then(function (response) {
-    console.log(response.data);
     let cityTime = new Date(
       now.getTime() + (response.data.timezone + localZone) * 1000
     );
@@ -70,8 +69,17 @@ function handleCity(city) {
     let cityVisibility = Math.round(response.data.visibility / 1000);
     let cityPressure = response.data.main.pressure;
     let cityWeatherDescription = response.data.weather[0].description;
-    cityWeatherDescription = cityWeatherDescription.charAt(0).toUpperCase() + cityWeatherDescription.slice(1)
+    let cityCurrentIcon = response.data.weather[0].icon
     setDateTime(cityTime);
+    if (response.data.dt - response.data.sys.sunrise > 0 && response.data.sys.sunset - response.data.dt > 0) {
+      document.getElementById("main-container").style.background = "radial-gradient(circle at 10% 20%, rgb(253, 239, 132) 0%, rgb(247, 198, 169) 54.2%, rgb(21, 186, 196) 100.3%)"
+      document.getElementById("main-container").style.color = "black"
+      document.getElementById("search-button").style.color = "black"
+    } else {
+      document.getElementById("main-container").style.background = "linear-gradient(1.14deg,rgb(20, 36, 50) 11.8%,rgb(124, 143, 161) 83.8%)"
+      document.getElementById("main-container").style.color = "white"
+      document.getElementById("search-button").style.color = "white"
+    }
     currentLocation.innerHTML = `${city}, ${country}`;
     currentTemp.innerHTML = cityCurrentTemp;
     feelsLikeTemp.innerHTML = cityFeelsLikeTemp;
@@ -80,9 +88,9 @@ function handleCity(city) {
     visibility.innerHTML = cityVisibility;
     pressure.innerHTML = cityPressure;
     weatherDescription.innerHTML = cityWeatherDescription;
+    currentIcon.setAttribute("src", `https://openweathermap.org/img/wn/${cityCurrentIcon}@2x.png`)
   })
   axios.get(forecastUrl).then(function (response) {
-    console.log(response.data);
     let cityMaxCurrentTemp = Math.round(response.data.list[0].main.temp_max);
     let cityMinCurrentTemp = Math.round(response.data.list[0].main.temp_min);
     for (let i = 1; i < 4; i++) {
@@ -154,7 +162,6 @@ let degF = document.querySelector("#deg-f");
 let fetchLocationButton = document.querySelector("#fetch-location");
 
 fetchLocation();
-setDateTime(now);
 degC.removeAttribute("href");
 searchCity.addEventListener("submit", handleSearch);
 degC.addEventListener("click", fToC);

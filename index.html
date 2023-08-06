@@ -18,9 +18,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" id="main-container">
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           <h6>The Only Weather Forecast You Need</h6>
           <hr width="60%" />
           <div class="row align-items-center">
@@ -34,7 +34,7 @@
                     id="desired-location"
                   />
                   <button class="btn btn-light" type="submit">
-                    <i class="fa fa-search"></i>
+                    <i class="fa fa-search" id="search-button"></i>
                   </button>
                 </div>
               </form>
@@ -50,25 +50,25 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
-          <h1><i class="fa-solid fa-cloud-sun fa-flip-horizontal"></i></h1>
+        <div class="col-3">
+          <img src="" alt="" id="current-icon" />
         </div>
         <div class="col-4 top-right">
           <h4>
             <i class="fa-solid fa-location-dot"></i>
-            <strong id="current-location">Tehran</strong>
+            <strong id="current-location"></strong>
           </h4>
-          <h6 id="current-date-time">Current Date Time</h6>
+          <h6 id="current-date-time"></h6>
           <h5>
-            <strong id="weather-description">Mostly Cloudy</strong>
+            <strong id="weather-description"></strong>
           </h5>
         </div>
       </div>
       <div class="container sub-cont">
         <div class="row">
-          <div class="col-3">
+          <div class="col-4">
             <h2>
-              Now <span class="temp" id="current-temp">8</span
+              Now <span class="temp" id="current-temp"></span
               ><small
                 ><a href="#" id="deg-c">°C</a>|<a href="#" id="deg-f"
                   >°F</a
@@ -76,37 +76,37 @@
               >
             </h2>
           </div>
-          <div class="col-3">
+          <div class="col-2">
             <p class="day-detail-1">
-              High: <span class="temp" id="max-current-temp">8</span
+              High: <span class="temp" id="max-current-temp"></span
               ><small>°</small>
               <br />
-              Low: <span class="temp" id="min-current-temp">1</span
+              Low: <span class="temp" id="min-current-temp"></span
               ><small>°</small>
             </p>
           </div>
           <div class="col-3">
             <p class="day-detail-2">
-              Feels like: <span class="temp" id="feels-like-temp">8</span
+              Feels like: <span class="temp" id="feels-like-temp"></span
               ><small>°</small>
               <br />
-              Humidity: <span id="humidity">49</span>%
+              Humidity: <span id="humidity"></span>%
               <br />
-              Wind: <span id="wind-speed">1.18</span> m/s
+              Wind: <span id="wind-speed"></span> m/s
             </p>
           </div>
           <div class="col-3">
             <p class="day-detail-3">
-              Pressure: <span id="pressure">1030</span> mb
+              Pressure: <span id="pressure"></span> mb
               <br />
-              Visibility: <span id="visibility">10</span> km
+              Visibility: <span id="visibility"></span> km
             </p>
           </div>
         </div>
         <hr />
         <div class="row forcast">
           <div class="col">
-            <h6 id="forcast-1">Sun</h6>
+            <h6 id="forcast-1"></h6>
             <h3><i class="fa-solid fa-sun"></i></h3>
             <p>
               <span class="temp">13</span><small>°</small>/<span class="temp"
@@ -115,7 +115,7 @@
             </p>
           </div>
           <div class="col">
-            <h6 id="forcast-2">Mon</h6>
+            <h6 id="forcast-2"></h6>
             <h3><i class="fa-solid fa-cloud-sun-rain"></i></h3>
             <p>
               <span class="temp">14</span><small>°</small>/<span class="temp"
@@ -124,7 +124,7 @@
             </p>
           </div>
           <div class="col">
-            <h6 id="forcast-3">Tue</h6>
+            <h6 id="forcast-3"></h6>
             <h3><i class="fa-solid fa-cloud"></i></h3>
             <p>
               <span class="temp">15</span><small>°</small>/<span class="temp"
@@ -133,7 +133,7 @@
             </p>
           </div>
           <div class="col">
-            <h6 id="forcast-4">Sun</h6>
+            <h6 id="forcast-4"></h6>
             <h3><i class="fa-solid fa-cloud-bolt"></i></h3>
             <p>
               <span class="temp">14</span><small>°</small>/<span class="temp"
@@ -142,7 +142,7 @@
             </p>
           </div>
           <div class="col">
-            <h6 id="forcast-5">Sun</h6>
+            <h6 id="forcast-5"></h6>
             <h3><i class="fa-solid fa-cloud-rain"></i></h3>
             <p>
               <span class="temp">10</span><small>°</small>/<span class="temp"
