@@ -6,22 +6,19 @@ function setDateTime(now) {
   let hour = String(now.getHours()).padStart(2, "0");
   let minute = String(now.getMinutes()).padStart(2, "0");
   let currentDateTime = document.querySelector("#current-date-time");
-  let forcast = [];
-  for (let i = 0; i < 5; i++) {
-    forcast[i] = document.querySelector(`#forcast-${i + 1}`);
-    if (now.getDay() + i < 6) {
-      forcast[i].innerHTML = days[now.getDay() + i + 1].slice(0, 3);
-    } else {
-      forcast[i].innerHTML = days[now.getDay() + i - 6].slice(0, 3);
-    }
+  let forcast = "";
+  for (let i = 1; i < 6; i++) {
+    forcast = document.querySelector(`#forcast-${i}`);
+    forcast.innerHTML = days[now.getDay() + i].slice(0, 3);
   }
-
   currentDateTime.innerHTML = `${day}, ${month} ${date}, ${year}<br>${hour}:${minute}`;
 }
+
 function fetchLocation() {
   document.querySelector("#desired-location").value = "";
   navigator.geolocation.getCurrentPosition(retrievePosition);
 }
+
 function retrievePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -31,6 +28,7 @@ function retrievePosition(position) {
     handleCity(currentLocation);
   });
 }
+
 function handleSearch(event) {
   event.preventDefault();
   let desiredCity = document.querySelector("#desired-location").value;
@@ -53,7 +51,6 @@ function handleCity(city) {
   let pressure = document.querySelector("#pressure");
   let weatherDescription = document.querySelector("#weather-description")
   let currentIcon = document.querySelector("#current-icon")
-
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
 
   axios.get(url).then(function (response) {
@@ -75,10 +72,17 @@ function handleCity(city) {
       document.getElementById("main-container").style.background = "radial-gradient(circle at 10% 20%, rgb(253, 239, 132) 0%, rgb(247, 198, 169) 54.2%, rgb(21, 186, 196) 100.3%)"
       document.getElementById("main-container").style.color = "black"
       document.getElementById("search-button").style.color = "black"
+      document.querySelectorAll("a")[1].style.color = "#EC6E4C"
+      document.querySelectorAll("a")[2].style.color = "#EC6E4C"
+      document.getElementById("fetch-location").style.color = "#EC6E4C"
+
     } else {
       document.getElementById("main-container").style.background = "linear-gradient(1.14deg,rgb(20, 36, 50) 11.8%,rgb(124, 143, 161) 83.8%)"
       document.getElementById("main-container").style.color = "white"
       document.getElementById("search-button").style.color = "white"
+      document.querySelectorAll("a")[1].style.color = "#d4af37"
+      document.querySelectorAll("a")[2].style.color = "#d4af37"
+      document.getElementById("fetch-location").style.color = "#d4af37"
     }
     currentLocation.innerHTML = `${city}, ${country}`;
     currentTemp.innerHTML = cityCurrentTemp;
@@ -89,6 +93,7 @@ function handleCity(city) {
     pressure.innerHTML = cityPressure;
     weatherDescription.innerHTML = cityWeatherDescription;
     currentIcon.setAttribute("src", `https://openweathermap.org/img/wn/${cityCurrentIcon}@2x.png`)
+    currentIcon.setAttribute("alt", response.data.weather[0].description)
 
     axios.get(forecastUrl).then(function (response) {
       let maxForcastTemp = ""
@@ -102,6 +107,7 @@ function handleCity(city) {
         minForcastTemp.innerHTML = Math.round(response.data.daily[i].temp.min);
         let cityForcastIcon = response.data.daily[i].weather[0].icon
         forcastIcon.setAttribute("src", `https://openweathermap.org/img/wn/${cityForcastIcon}@2x.png`)
+        forcastIcon.setAttribute("alt", response.data.daily[i].weather[0].description)
       }
       let cityMaxCurrentTemp = Math.round(response.data.daily[0].temp.max);
       let cityMinCurrentTemp = Math.round(response.data.daily[0].temp.min);
@@ -109,7 +115,6 @@ function handleCity(city) {
       minCurrentTemp.innerHTML = cityMinCurrentTemp;
     });
   })
-
 }
 
 function fToC() {
@@ -141,9 +146,13 @@ let days = [
   "Wednesday",
   "Thursday",
   "Friday",
-  "Saturday"
+  "Saturday",
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday"
 ];
-
 let months = [
   "Jan",
   "Feb",
@@ -158,7 +167,6 @@ let months = [
   "Nov",
   "Dec"
 ];
-
 let now = new Date();
 let localZone = now.getTimezoneOffset() * 60;
 let searchCity = document.querySelector("#search-city");
