@@ -72,17 +72,10 @@ function handleCity(city) {
       document.getElementById("main-container").style.background = "radial-gradient(circle at 10% 20%, rgb(253, 239, 132) 0%, rgb(247, 198, 169) 54.2%, rgb(21, 186, 196) 100.3%)"
       document.getElementById("main-container").style.color = "black"
       document.getElementById("search-button").style.color = "black"
-      document.querySelectorAll("a")[1].style.color = "#EC6E4C"
-      document.querySelectorAll("a")[2].style.color = "#EC6E4C"
-      document.getElementById("fetch-location").style.color = "#EC6E4C"
-
     } else {
       document.getElementById("main-container").style.background = "linear-gradient(1.14deg,rgb(20, 36, 50) 11.8%,rgb(124, 143, 161) 83.8%)"
       document.getElementById("main-container").style.color = "white"
       document.getElementById("search-button").style.color = "white"
-      document.querySelectorAll("a")[1].style.color = "#d4af37"
-      document.querySelectorAll("a")[2].style.color = "#d4af37"
-      document.getElementById("fetch-location").style.color = "#d4af37"
     }
     currentLocation.innerHTML = `${city}, ${country}`;
     currentTemp.innerHTML = cityCurrentTemp;
