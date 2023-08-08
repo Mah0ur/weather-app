@@ -1,4 +1,32 @@
 function setDateTime(now) {
+  let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday"
+];
+let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
   let day = days[now.getDay()];
   let month = months[now.getMonth()];
   let date = now.getDate();
@@ -40,6 +68,8 @@ function handleCity(city) {
   if (currentUnit === "f") {
     fToC();
   }
+  let now = new Date();
+  let localZone = now.getTimezoneOffset() * 60;
   let currentLocation = document.querySelector("#current-location");
   let currentTemp = document.querySelector("#current-temp");
   let feelsLikeTemp = document.querySelector("#feels-like-temp");
@@ -132,38 +162,9 @@ function cToF() {
 
 let apiKey = "64469ac67e6dc941feb5b50915a18dc7";
 let unit = "metric";
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday"
-];
-let months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec"
-];
-let now = new Date();
-let localZone = now.getTimezoneOffset() * 60;
-let searchCity = document.querySelector("#search-city");
 let currentUnit = "c";
+
+let searchCity = document.querySelector("#search-city");
 let degC = document.querySelector("#deg-c");
 let degF = document.querySelector("#deg-f");
 let fetchLocationButton = document.querySelector("#fetch-location");
