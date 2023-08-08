@@ -59,18 +59,13 @@ img {
   bottom: 0;
 }
 .day-detail-1,
-.day-detail-2 {
+.day-detail-2,
+.forcast,
+.credit {
   text-align: center;
 }
 .day-detail-3 {
   text-align: right;
-}
-.forcast {
-  text-align: center;
-}
-
-.credit {
-  text-align: center;
 }
 
 #fetch-location {
