@@ -160,7 +160,7 @@ function cToF() {
   });
 }
 
-let apiKey = "64469ac67e6dc941feb5b50915a18dc7";
+let apiKey = "5201594abea9f3e38b70e65b11a80c24";
 let unit = "metric";
 let currentUnit = "c";
 
